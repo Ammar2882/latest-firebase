@@ -1,4 +1,4 @@
-import * as React from "react"
+import React,{useState , useEffect} from "react"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
@@ -7,84 +7,90 @@ import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein }
-}
+// function createData(name, calories, fat, carbs, protein) {
+//   return { name, calories, fat, carbs, protein }
+// }
 
-const rows = [
-  createData(
-    "Mehar Grewal",
-    "+44 83743 3883",
-    "62 mayfair avenue ",
-    "5 acres",
-    "Adam Smith"
-  ),
-  createData(
-    "Will Anderson",
-    "+44 83743 3883",
-    "62 mayfair avenue ",
-    "5 acres",
-    "Adam Smith"
-  ),
-  createData(
-    "Will Anderson",
-    "+44 83743 3883",
-    "62 mayfair avenue ",
-    "5 acres",
-    "Adam Smith"
-  ),
-  createData(
-    "Will Anderson",
-    "+44 83743 3883",
-    "62 mayfair avenue ",
-    "5 acres",
-    "Adam Smith"
-  ),
-  createData(
-    "Will Anderson",
-    "+44 83743 3883",
-    "62 mayfair avenue ",
-    "5 acres",
-    "Adam Smith"
-  ),
-  createData(
-    "Will Anderson",
-    "+44 83743 3883",
-    "62 mayfair avenue ",
-    "5 acres",
-    "Adam Smith"
-  ),
-  createData(
-    "Will Anderson",
-    "+44 83743 3883",
-    "62 mayfair avenue ",
-    "5 acres",
-    "Adam Smith"
-  ),
-  createData(
-    "Will Anderson",
-    "+44 83743 3883",
-    "62 mayfair avenue ",
-    "5 acres",
-    "Adam Smith"
-  ),
-  createData(
-    "Will Anderson",
-    "+44 83743 3883",
-    "62 mayfair avenue ",
-    "5 acres",
-    "Adam Smith"
-  ),
-  createData(
-    "Will Anderson",
-    "+44 83743 3883",
-    "62 mayfair avenue ",
-    "5 acres",
-    "Adam Smith"
-  ),
-];
+// const rows = [
+//   createData(
+//     "Mehar Grewal",
+//     "+44 83743 3883",
+//     "62 mayfair avenue ",
+//     "5 acres",
+//     "Adam Smith"
+//   ),
+//   createData(
+//     "Will Anderson",
+//     "+44 83743 3883",
+//     "62 mayfair avenue ",
+//     "5 acres",
+//     "Adam Smith"
+//   ),
+//   createData(
+//     "Will Anderson",
+//     "+44 83743 3883",
+//     "62 mayfair avenue ",
+//     "5 acres",
+//     "Adam Smith"
+//   ),
+//   createData(
+//     "Will Anderson",
+//     "+44 83743 3883",
+//     "62 mayfair avenue ",
+//     "5 acres",
+//     "Adam Smith"
+//   ),
+//   createData(
+//     "Will Anderson",
+//     "+44 83743 3883",
+//     "62 mayfair avenue ",
+//     "5 acres",
+//     "Adam Smith"
+//   ),
+//   createData(
+//     "Will Anderson",
+//     "+44 83743 3883",
+//     "62 mayfair avenue ",
+//     "5 acres",
+//     "Adam Smith"
+//   ),
+//   createData(
+//     "Will Anderson",
+//     "+44 83743 3883",
+//     "62 mayfair avenue ",
+//     "5 acres",
+//     "Adam Smith"
+//   ),
+//   createData(
+//     "Will Anderson",
+//     "+44 83743 3883",
+//     "62 mayfair avenue ",
+//     "5 acres",
+//     "Adam Smith"
+//   ),
+//   createData(
+//     "Will Anderson",
+//     "+44 83743 3883",
+//     "62 mayfair avenue ",
+//     "5 acres",
+//     "Adam Smith"
+//   ),
+//   createData(
+//     "Will Anderson",
+//     "+44 83743 3883",
+//     "62 mayfair avenue ",
+//     "5 acres",
+//     "Adam Smith"
+//   ),
+// ];
 
-const BasicTable = ({ tenets }) => {
+const BasicTable = ({allData , filteredData}) => {
+
+
+// useEffect=(()=>{
+
+// },[])
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -97,7 +103,7 @@ const BasicTable = ({ tenets }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {tenets.map((row) => (
+          {allData.map((row) => (
             <TableRow
               key={row.name}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

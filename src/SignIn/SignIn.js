@@ -1,4 +1,5 @@
-import  React , {useState} from "react";
+import  React , {useState } from "react";
+import { useHistory } from "react-router-dom"
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -15,6 +16,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import styled from "styled-components";
 import '../Firebase/Firebase';
 import firebase from 'firebase'
+import { useAlert } from 'react-alert'
 
 function Copyright(props) {
   return (
@@ -37,8 +39,9 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignInSide() {
+  const alert = useAlert()
 
-  
+  const history = useHistory()  
   const [email , setEmail] = useState('')
   const [password , setPassword]  = useState('')
 
@@ -55,11 +58,17 @@ const  handlePassword=(e)=> {
     .then((userCredential) => {
       // Signed in
       var user = userCredential.user;
-      console.log(user)
+      if(user){
+        alert.show('Successfully Logged In')
+        history.push('/')
+      }
     })
     .catch((error) => {
       var errorCode = error.code;
       var errorMessage = error.message;
+
+        alert.show("Please Enter Valid Email and Password")
+      
     })
     };
   

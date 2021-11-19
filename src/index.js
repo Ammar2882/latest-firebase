@@ -5,13 +5,24 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 // import { store } from "./store"; // <<------//
+import { Provider as AlertProvider } from 'react-alert'
+import AlertTemplate from 'react-alert-template-basic'
 import { BrowserRouter } from "react-router-dom";
 
+const options = {
+  position: 'bottom center',
+  timeout: 5000,
+  offset: '30px',
+  transition: 'scale'
+}
+
+
 ReactDOM.render(
-  
+<AlertProvider template={AlertTemplate} {...options}>
   <BrowserRouter>
       <App />
-  </BrowserRouter>,
+  </BrowserRouter>
+  </AlertProvider>,
   document.getElementById("root")
 );
 

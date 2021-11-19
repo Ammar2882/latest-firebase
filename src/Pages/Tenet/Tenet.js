@@ -5,10 +5,12 @@ import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import Header from "../../Header/Header";
 import '../../Firebase/Firebase';
+import { useAlert } from 'react-alert'
 import firebase from 'firebase'
 var db = firebase.firestore();
 
 const Tenet = () => {
+  const alert = useAlert()
   const [name , setName] = useState('')
   const [address , setAddress]  = useState('')
   const [phoneNumber , setPhoneNumber] = useState('')
@@ -27,7 +29,8 @@ const  handleDirection=(e)=> {
   setDirection(e.target.value);
 }
 
-const handleSubmit=()=>{
+const handleSubmit=(e)=>{
+  e.preventDefault()
   db.collection("tenets").add({
     name: name,
     address: address,
@@ -36,6 +39,11 @@ const handleSubmit=()=>{
 })
 .then((docRef) => {
     console.log("Document written with ID: ", docRef.id);
+    alert.show("Document Saved Successfully")
+    setName('')
+    setAddress('')
+    setPhoneNumber('')
+    setDirection('')
 })
 .catch((error) => {
     console.error("Error adding document: ", error);
@@ -62,6 +70,7 @@ const handleSubmit=()=>{
               id="standard-search"
               label="Name"
               type="text"
+              value={name}
               onChange={handleName}
               variant="standard"
             />
@@ -71,6 +80,7 @@ const handleSubmit=()=>{
               id="standard-search"
               label="Address"
               type="text"
+              value={address}
               onChange={handleAddress}
               variant="standard"
             />
@@ -80,6 +90,7 @@ const handleSubmit=()=>{
               id="standard-search"
               label="Phone Number"
               type="text"
+              value={phoneNumber}
               onChange={handleNumber}
               variant="standard"
             />
@@ -89,6 +100,7 @@ const handleSubmit=()=>{
               id="standard-search"
               label="Direction"
               type="text"
+              value={direction}
               onChange={handleDirection}
               variant="standard"
             />

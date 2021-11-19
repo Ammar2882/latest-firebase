@@ -1,9 +1,16 @@
-import Table from "./../../component/Table/Table";
+// import Table from "./../../component/Table/Table";
 import React,{useEffect , useState} from 'react'
 import styled from "styled-components";
 import firebase from "firebase/app";
 import "firebase/auth";
 import '../../Firebase/Firebase';
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody"
+import TableCell from "@mui/material/TableCell"
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead"
+import TableRow from "@mui/material/TableRow"
+import Paper from "@mui/material/Paper"
 
 
 import TextField from "@mui/material/TextField";
@@ -11,13 +18,16 @@ import Header from "../../Header/Header";
 var db = firebase.firestore();
 
 const SearchPage = () => {
-const [tenetData , setTenetData] = useState([])
+
+  
+const [allData , setAllData] = useState([])
 const [loading , setLoading] = useState(true)
+const [searchItem , setSearchItem] = useState('')
 
   useEffect(()=>{
     db.collection("tenets").get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        setTenetData(currentArray => [...currentArray, doc.data()])
+        setAllData(currentArray => [...currentArray, doc.data()])
         setLoading(false)
           
       });
@@ -40,34 +50,50 @@ else{
           <TextField
             id="standard-search"
             label="Search Items"
-            type="search"
+            type="text" 
+            onChange={(event) =>setSearchItem(event)}
             variant="standard"
             style={{ width: "500px" }}
           />
         </SearchF>
         <TableF>
-          <Table tenets={tenetData}/>
+        <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Name </TableCell>
+            <TableCell align="right">Address</TableCell>
+            <TableCell align="right">Phone Number</TableCell>
+            <TableCell align="right">Direction</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {allData.map((val) => (
+            <TableRow
+              key={val.name}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {val.name}
+              </TableCell>
+              <TableCell align="right">{val.address}</TableCell>
+              <TableCell align="right">{val.phoneNumber}</TableCell>
+              <TableCell align="right">{val.direction}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
         </TableF>
-      {/* <table>
-        <th>Name</th>
-        <th>Address</th>
-        <th>Phone Number</th>
-        <th>Direction</th>
-      
-          <tr>
-            {tenetData.name}
-            {tenetData.address}
-            {tenetData.phoneNumber}
-            {tenetData.direction}
-          </tr>
-      
-      </table> */}
-
       </SearchContainer>
+
+      
     </>
   );
 }
 };
+
+
 
 export default SearchPage;
 

@@ -1,10 +1,14 @@
-import React, { Component , useState } from "react";
+import React, { Component , useState  } from "react";
+import { useHistory } from "react-router";
 import styled from "styled-components";
 import '../Firebase/Firebase';
+import { useAlert } from 'react-alert'
 import firebase from 'firebase'
 
 
 const SignUp = () => {
+  const alert = useAlert()
+  const history = useHistory()
   const [email , setEmail] = useState('')
   const [password , setPassword]  = useState('')
 
@@ -29,11 +33,14 @@ const  handlePassword=(e)=> {
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
+      alert.show("Signup Successful")
+      history.push('/SignInSide')
       // ...
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+      alert.show("Please Enter Valid Signup Details")
       // ..
     });
   }
